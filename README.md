@@ -41,17 +41,13 @@ python downloader.py
   5. **YouTube Thumbnail** (Baseline fallback for indie tracks/remixes)
 - **100% Embedded**: Cover art is embedded directly into Opus (`metadata_block_picture`) and MP3 (`APIC` ID3), immediately visible in MusicBee, Foobar2000, VLC, and mobile players.
 
-### 3. Cute Chibi Progress Companion
-- No intrusive full-screen banners at startup — the application boots instantly.
-- Whenever downloading or processing (Video download, Music download, Studio enrichment, Cookies import, Package updates), a cute chibi companion appears in the console displaying live progress with `@pragyancreates`.
-
-### 4. YouTube Cookies Manager (Drag & Drop cookies.txt)
+### 3. YouTube Cookies Manager (Drag & Drop cookies.txt)
 - **Bypass Bot & Sign-in Gates**: Option `[3]` lets you drag and drop your exported `cookies.txt` file directly into the terminal window.
 - **Zero Configuration**: Automatically saves to `bin/cookies.txt` and seamlessly feeds `--cookies` to `yt-dlp` for all video and audio downloads.
 - Resolves YouTube's *"Sign in to confirm you're not a bot"*, age-restricted video locks, and private playlist permissions.
 - Easily replace or type `remove` to clear saved cookies at any time.
 
-### 5. YouTube Video Downloader
+### 4. YouTube Video Downloader
 - Prompts for a video URL and displays the complete table of available resolutions, framerates, codecs, and bitrates (`yt-dlp -F`).
 - **Format Selection**:
   - Type `best` for the maximum video resolution merged with the best audio stream.
@@ -60,7 +56,7 @@ python downloader.py
 - **Containers**: Choose between **MP4** or **MKV**.
 - Saved in: `Downloads/Videos/`.
 
-### 6. Music Downloader with Beets & Lyrics Enrichment
+### 5. Music Downloader with Beets & Lyrics Enrichment
 - **Single Tracks & Playlists**: Accepts any song link or playlist URL (`list=...`).
 - **Audio Formats**:
   - **MP3** (High Quality 320 kbps / universal compatibility)
