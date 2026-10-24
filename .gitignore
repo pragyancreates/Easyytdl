@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+venv/
+ENV/
+
+# Downloaded Media
+Downloads/
+
+# Binaries, runtime databases and sensitive tokens
+bin/yt-dlp.exe
+bin/ffmpeg.exe
+bin/ffprobe.exe
+bin/*.zip
+bin/*.db
+bin/*.db*
+bin/*.bak
+bin/cookies.txt
+cookies.txt
+
+# OS & Editor generated files
+.DS_Store
+Thumbs.db
+*.tmp
+.vscode/
+.idea/

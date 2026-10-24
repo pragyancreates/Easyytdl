@@ -1,0 +1,20 @@
+# Beets configuration for enrichment
+plugins:
+  - musicbrainz
+  - lyrics
+
+import:
+  write: yes
+  copy: no
+  move: no
+  resume: no
+  autotag: yes
+  timid: no
+  quiet_fallback: asis
+
+match:
+  strong_rec_thresh: 0.20
+  medium_rec_thresh: 0.50
+
+musicbrainz:
+  searchlimit: 10
