@@ -87,8 +87,10 @@ Music and Youtube Video Downloader/
 │
 ├── downloader.py               # Main Python application
 ├── run.bat                     # Quick launcher to double-click on Windows
+├── frieren.txt                 # High-detail Braille Frieren mascot art
 │
 ├── bin/                        # Local database & config
+│   ├── mascot.txt              # Braille Frieren companion fetched during downloads
 │   ├── beets_config.yaml
 │   └── beets.db
 │

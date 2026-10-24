@@ -50,6 +50,7 @@ MUSIC_DIR = DOWNLOADS_DIR / "Music"
 BEETS_CONFIG = BIN_DIR / "beets_config.yaml"
 BEETS_DB = BIN_DIR / "beets.db"
 COOKIES_FILE = BIN_DIR / "cookies.txt"
+MASCOT_FILE = BIN_DIR / "mascot.txt"
 
 # Ensure directories exist
 for folder in [BIN_DIR, DOWNLOADS_DIR, VIDEOS_DIR, MUSIC_DIR]:
@@ -59,15 +60,51 @@ for folder in [BIN_DIR, DOWNLOADS_DIR, VIDEOS_DIR, MUSIC_DIR]:
 os.environ["PATH"] = f"{BIN_DIR}{os.pathsep}{os.environ.get('PATH', '')}"
 
 
-## Cute Chibi Character for Download & Processing Progress
+## High Detail Braille Frieren Mascot Loader & Progress Display
+def load_mascot_lines():
+    """Load high-detail Braille Frieren mascot from file, with built-in fallback."""
+    if MASCOT_FILE.exists():
+        try:
+            content = MASCOT_FILE.read_text(encoding="utf-8")
+            lines = [l.strip("\r") for l in content.strip().splitlines() if l.strip()]
+            if lines:
+                return lines
+        except Exception:
+            pass
+
+    # Built-in high-detail Braille Frieren in Scarf fallback
+    return [
+        "⠀⠀⠀⠀⠈⠉⠩⠏⣉⣉⡭⠭⠭⠙⠯⠭⢉⡙⠋⠩⢍⡹⢝⢻⠀⠀⠀⠀",
+        "⠀⠀⠀⠀⠨⠆⡡⠊⡡⢂⠀⠂⠀⢀⠀⠀⠀⠈⠉⠂⠁⠻⡌⢀⠀⠀⠀⠀",
+        "⡀⡀⡀⠀⢀⠮⢉⠈⠐⠁⢀⠔⡠⠀⠀⠀⠀⠀⢌⠢⡀⠠⢱⣨⣀⣀⡀⣀",
+        "⣧⣇⠃⡆⡼⡈⠆⠌⠀⠠⠠⢊⠔⠁⠀⠠⢀⠀⠀⢁⠱⡄⡴⡇⢟⣿⣷⢻",
+        "⣿⣹⢰⠀⠱⡍⠈⠈⢠⠆⡰⠋⠀⠠⠀⢀⢎⠀⢄⠈⢃⠱⠀⢷⣁⡝⣿⣼",
+        "⣿⡇⢸⢀⠀⢁⡇⠀⡜⢰⠁⢀⠔⢁⡔⠁⠀⢢⡄⠲⢬⡀⠀⠘⣗⡬⠭⣿",
+        "⡿⠥⠤⠤⢤⠘⠀⡀⡇⠤⢊⡤⠌⠥⠀⠀⠀⠀⠬⠵⠦⡅⠁⡇⠆⣢⢞⣽",
+        "⡷⡼⡈⠀⠀⣼⠁⡇⢁⠾⠥⠤⢤⡶⡄⠀⠀⡔⠒⣲⡒⣒⢀⡇⢰⢱⣿⣿",
+        "⡇⣷⡈⠓⠦⠄⣆⢷⠈⢝⠛⣆⣛⡺⠁⠀⠀⠈⠹⢼⡭⢃⡾⠀⡞⡟⣿⢿",
+        "⡇⢿⢇⠰⢳⢐⡈⠘⣆⢪⡃⠀⠀⠀⠀⠀⠀⠀⣀⣨⡔⠋⣅⣂⣓⠻⢈⣹",
+        "⡇⢻⠸⡄⢿⠈⡏⠓⠌⣀⠑⠒⠒⠲⠶⠄⣉⠩⢍⣀⠒⠈⠀⠀⠀⠀⠒⢼",
+        "⣿⠈⡆⣷⠈⢆⠁⠀⠯⣀⣀⣀⣀⣀⠤⢤⡌⠀⠀⠀⢀⡄⢧⠀⠘⢀⠉⢺",
+        "⡇⢣⠐⣇⠠⠘⠀⠀⠀⢀⣠⠤⠤⠤⣔⡁⠀⡇⠀⣀⣸⠤⠸⢤⡇⠰⡈⣾",
+        "⣟⣄⣧⣘⣄⣀⣀⣀⣼⣋⣀⣀⣀⣀⣠⣮⣦⣥⣾⣁⣀⣀⣀⣀⣈⣣⣄⣿"
+    ]
+
+
 def print_progress_character(action: str, subtitle: str = "", icon: str = "♫"):
-    """Display a cute chibi character indicating download/task progress."""
-    print(f"""
-{Colors.CYAN}         (\\   /)
-        (˶ᵔ ᵕ ᵔ˶)   {Colors.BOLD}{action}{Colors.RESET}
-{Colors.CYAN}       c(  ---  )    {Colors.YELLOW}★ @pragyancreates ★{Colors.RESET}
-{Colors.CYAN}         / [{icon}] \\     {Colors.GREEN}{subtitle}{Colors.RESET}
-""")
+    """Display high-detail Braille Frieren mascot fetched from bin/mascot.txt during loading/processing."""
+    mascot_lines = load_mascot_lines()
+    side_texts = {
+        4: f" {Colors.CYAN}[{icon}]{Colors.RESET} {Colors.BOLD}{action}{Colors.RESET}",
+        5: f" {Colors.YELLOW}★ @pragyancreates ★{Colors.RESET}",
+        6: f" {Colors.GREEN}{subtitle}{Colors.RESET}" if subtitle else ""
+    }
+
+    print()
+    for idx, line in enumerate(mascot_lines):
+        side = side_texts.get(idx, "")
+        print(f"{Colors.CYAN}{line}{Colors.RESET}{side}")
+    print()
 
 
 # ==============================================================================
