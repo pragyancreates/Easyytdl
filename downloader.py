@@ -59,42 +59,15 @@ for folder in [BIN_DIR, DOWNLOADS_DIR, VIDEOS_DIR, MUSIC_DIR]:
 os.environ["PATH"] = f"{BIN_DIR}{os.pathsep}{os.environ.get('PATH', '')}"
 
 
-# Dotted structure (Braille ASCII Art) of Frieren
-BANNER_ART = r"""⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠴⠖⢲⡄⢠⠤⠄⠒⠒⠐⠦⣅⠀⠒⠒⠒⠦⢤⣄⣀⠀⠀⣀⡤⠶⢶⣄⠀⢘⡑⠇⠀⠀⣹⣤⠀⠀⠀⠀
-⠀⠀⢀⣠⡶⠿⠾⠿⡀⢤⣴⡉⠋⠀⢀⣀⣀⠀⠀⣀⣠⠤⠤⠤⠤⣝⠀⠀⠀⠉⠉⠉⠉⠙⠐⠾⣄⠈⠉⠉⠱⠍⠁⠀⠀⠀⠀⢸⠀⠀⠀⠀
-⣀⢰⣋⠵⠒⠛⠓⠂⢌⡄⠉⣀⣊⣉⡉⠁⢀⠴⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠦⣄⠀⢳⠀⠀⠀⠀⠀⢈⠇⠀⠀⠀
-⠁⡚⠁⠀⠀⣠⡴⣶⠞⠋⠈⠁⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠈⠣⡀⢧⠀⠀⠀⠀⠸⠦⡄⣀⣀
-⠈⠀⠀⠀⣴⠋⣠⠋⠀⠙⠒⠶⠀⡰⠋⠀⠀⠀⠀⠀⠀⣠⠖⠋⢉⠀⠈⠀⠀⠀⠀⠀⠈⣉⠑⢦⡀⠀⠀⠀⠀⠙⣆⠢⠀⠀⠀⠀⠀⠛⠉⡌
-⠀⠀⠀⣸⠃⢠⠇⠀⣆⠀⠀⢀⡜⠁⠀⠀⠀⠀⠀⢠⠞⢁⡤⠞⠉⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⢄⠻⣄⠀⠀⠀⠀⠘⣦⠀⠀⠀⠀⠀⠀⠀⣧
-⠀⠀⢠⡏⠀⣾⠀⠀⠘⢦⠀⡞⠀⠀⠀⠀⠀⠀⡰⢃⡴⠋⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠑⢽⣆⠀⠀⠀⠀⠈⣧⠀⠀⠀⠀⠀⠀⠋
-⠀⠀⢸⠁⢀⣿⡀⢡⠀⠀⡿⠀⠀⠀⠀⠀⠀⢰⣱⠏⠀⠀⠀⠀⠀⠀⠀⡰⠃⡼⢧⠠⡄⠀⠀⠀⠀⠀⢻⣆⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀
-⠀⠀⣿⠀⠘⢿⣇⡀⠀⢸⠃⠀⠀⠀⠀⠀⢠⡿⠃⠀⠀⠀⠀⠀⠀⠀⡴⢁⠞⠁⠈⠳⡙⣄⠀⠀⠀⠀⠀⢹⡄⠀⠀⠀⡀⠁⡀⠀⠀⠀⠀⠀
-⠀⠀⡏⠀⢸⠘⡘⡔⢀⡌⠀⠀⠀⠀⠀⠀⣾⠁⠀⠀⠀⠀⠀⠀⢠⠞⡵⠃⠀⠀⠀⠀⠙⢌⢦⡀⠀⠀⠀⠀⢳⠀⠀⠀⢻⠠⠀⠀⠀⠀⠀⠀
-⠀⢠⡇⠀⢸⡄⠱⡘⢾⠃⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⢀⠀⢠⣴⡏⠁⠀⠀⠀⠀⠀⠀⠀⠀⡁⠽⢦⣄⣀⠀⠸⡄⠀⠀⠸⡄⠆⠀⣀⣀⣤⡴
-⠀⠸⡷⠤⠴⠷⠖⠻⢾⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⢈⡷⠾⣋⣀⠤⠷⠀⠀⠀⠀⠀⠀⠀⠚⠧⠤⠤⠛⠻⠦⣤⡇⣀⠀⠀⡇⢸⣹⠋⡟⢀⡴
-⣤⠤⣤⠤⠤⢤⣤⣀⢸⠀⠀⠀⠀⢠⠀⢈⣀⡴⠞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⣨⠀⠀⡇⢸⠏⠀⣠⠞⠀
-⠿⠀⢧⡀⠀⠀⠀⠈⠽⠀⣄⠀⠀⢸⡄⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠇⡟⠀⠀⡇⣋⡠⠾⠏⠀⢀
-⢤⣀⠀⠙⠓⣤⣀⠸⣄⡀⢹⠀⠀⢸⣇⠸⠰⠶⠶⠶⢶⠴⣶⠶⠶⠖⠀⠀⠀⠀⠀⠀⠐⠛⠛⠻⠛⠿⠛⠛⠛⢰⠃⠀⢠⠁⠃⢰⡀⠀⠀⠈
-⠀⠈⠹⣦⣄⡀⠈⠙⠲⣇⠈⢇⠀⠈⣿⡄⠆⠀⠀⣀⡘⢠⣀⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠤⠌⠤⠖⢀⣰⠏⠀⠀⡾⠈⠀⠀⣷⠀⠀⠀
-⡆⠀⠀⢿⣨⠟⠃⢡⣐⢋⣄⠈⣄⠀⢻⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠋⠀⣠⡞⢻⠀⠀⠀⠸⣤⣤⣤
-⡇⠀⠀⢸⣿⠀⠀⠈⣿⣄⣹⣧⡘⠄⠈⢿⡈⠷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢁⠀⣠⣾⢻⠧⠼⠦⢤⣤⠀⢹⢿⣭
-⡇⠀⠀⠀⢿⡄⠀⠀⣿⡆⠈⠛⠻⢷⣄⠨⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⡄⠀⠀⠀⠀⠀⣀⣀⠀⠀⠭⣞⠋⠀⠀⠀⠀⠀⠀⠈⣷⠲⠦⠨
-⣷⠀⠀⠀⠘⣷⡀⠀⣿⣧⠀⠀⠀⠀⠀⢀⡈⠛⠦⢤⣀⣀⣀⣀⣀⣀⡀⠀⠩⠤⠙⠛⡛⠻⠻⠿⣿⡷⠀⠠⣿⠁⠀⠀⠀⠀⠀⠀⣿⠀⢐⠶
-⢹⡀⠀⠀⠀⢹⣷⡀⠙⠋⠀⠀⠀⣶⣏⢁⣤⣴⠖⠛⠛⠉⠉⠉⠙⠛⣻⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⠀⠀⠀⠀⠀⠀⢀⣇⡀⠀⠉
-⠸⣧⠀⠀⠀⠀⡿⣷⡄⠀⠀⠀⢀⡇⠉⠈⠛⠻⠿⠿⠿⠿⠟⠛⠛⢛⡋⠉⠉⠀⢸⡦⠀⠀⠀⢠⡄⠀⠀⠀⢺⣧⠀⠀⠀⠆⠀⣹⠫⠉⠓⠶
-⠀⢻⣆⠀⠀⠀⡇⢿⣷⠀⠀⠂⠸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⣠⣶⣦⡇⠄⠀⠀⠀⠀⠀⠀⠀⣿⣿⡆⠂⠀⠀⢀⡟⠐⢄⠈⠉
-⡀⠀⠹⣄⠀⠐⡇⠈⠋⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⢀⠀⢤⣀⡐⠂⠀⠀⣼⠟⠁⣹⡇⠀⠀⠀⠀⠀⠀⠀⠀⠉⣻⠁⠐⠀⠀⢸⡓⢀⠐⠀⣐
-⠹⡄⠀⠘⣆⠀⢷⠛⠀⠀⠀⠀⠀⢸⡇⠀⢀⢰⢾⡿⠷⠶⠾⠿⠿⠿⣶⣤⡀⠺⠛⠁⠖⠀⠀⢀⣴⢾⣬⡽⠿⠿⠾⠿⣾⣤⠌⠁⢙⠷⣤⣠
-⠀⠹⣆⠀⠘⡆⠈⠻⣧⡀⠀⠀⢀⣼⢃⡴⣏⣻⠊⠀⠀⠀⠀⠀⠀⠀⠀⠁⢻⣦⡘⠒⠀⢀⣴⡟⠋⠈⠀⠀⠀⠀⠀⠀⠈⢻⣷⠚⢠⡀⢀⠚"""
-
-
-def print_banner():
-    """Display the dotted structure ASCII art and creator tag at startup."""
-    indent = "             "
-    print("\n")
-    for line in BANNER_ART.strip("\n").splitlines():
-        print(f"{Colors.CYAN}{indent}{line}{Colors.RESET}")
-    print(f"{indent}             {Colors.BOLD}{Colors.YELLOW}✨ @pragyancreates ✨{Colors.RESET}\n")
+## Cute Chibi Character for Download & Processing Progress
+def print_progress_character(action: str, subtitle: str = "", icon: str = "♫"):
+    """Display a cute chibi character indicating download/task progress."""
+    print(f"""
+{Colors.CYAN}         (\\   /)
+        (˶ᵔ ᵕ ᵔ˶)   {Colors.BOLD}{action}{Colors.RESET}
+{Colors.CYAN}       c(  ---  )    {Colors.YELLOW}★ @pragyancreates ★{Colors.RESET}
+{Colors.CYAN}         / [{icon}] \\     {Colors.GREEN}{subtitle}{Colors.RESET}
+""")
 
 
 # ==============================================================================
@@ -290,8 +263,8 @@ def embed_lyrics_to_file(file_path: Path, lyrics: str) -> bool:
 
 
 def get_tags(file_path: Path):
-    """Retrieve artist and title from audio file tags."""
-    artist, title = "", ""
+    """Retrieve artist, title, and album from audio file tags."""
+    artist, title, album = "", "", ""
     try:
         ext = file_path.suffix.lower()
         if ext == ".opus":
@@ -299,14 +272,16 @@ def get_tags(file_path: Path):
             audio = OggOpus(file_path)
             title = audio.get("title", [""])[0]
             artist = audio.get("artist", [""])[0]
+            album = audio.get("album", [""])[0]
         elif ext == ".mp3":
             from mutagen.id3 import ID3
             tags = ID3(file_path)
             title = str(tags.get("TIT2", ""))
             artist = str(tags.get("TPE1", ""))
+            album = str(tags.get("TALB", ""))
     except Exception:
         pass
-    return artist.strip(), (title.strip() if title else file_path.stem)
+    return artist.strip(), (title.strip() if title else file_path.stem), album.strip()
 
 
 def has_embedded_lyrics(file_path: Path) -> bool:
@@ -412,6 +387,7 @@ def fetch_musicbrainz_metadata(artist: str, title: str):
                 artist_credit = "".join([c.get("name", "") + c.get("joinphrase", "") for c in top.get("artist-credit", [])]) or artist
                 releases = top.get("releases", [])
                 album = releases[0].get("title") if releases else None
+                release_id = releases[0].get("id") if releases else None
                 date = releases[0].get("date") if releases else top.get("first-release-date")
                 track_num = None
                 if releases:
@@ -422,12 +398,223 @@ def fetch_musicbrainz_metadata(artist: str, title: str):
                     "title": rec_title,
                     "artist": artist_credit,
                     "album": album,
+                    "release_id": release_id,
                     "date": date,
                     "tracknumber": track_num
                 }
     except Exception:
         pass
     return None
+
+
+SPOTIFY_CLIENT_ID = "3f974573800a4ff5b325de9795b8e603"
+SPOTIFY_CLIENT_SECRET = "ff188d2860ff44baa57acc79c121a3b9"
+_spotify_cached_token = None
+
+
+def get_spotify_token():
+    """Retrieve Spotify access token using client credentials (from lacymorrow/album-art)."""
+    global _spotify_cached_token
+    if _spotify_cached_token:
+        return _spotify_cached_token
+    try:
+        import requests
+        import base64
+        auth_str = f"{SPOTIFY_CLIENT_ID}:{SPOTIFY_CLIENT_SECRET}"
+        b64_auth = base64.b64encode(auth_str.encode("ascii")).decode("ascii")
+        url = "https://accounts.spotify.com/api/token"
+        headers = {
+            "Authorization": f"Basic {b64_auth}",
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+        data = {"grant_type": "client_credentials"}
+        resp = requests.post(url, headers=headers, data=data, timeout=8)
+        if resp.status_code == 200:
+            _spotify_cached_token = resp.json().get("access_token")
+            return _spotify_cached_token
+    except Exception:
+        pass
+    return None
+
+
+def fetch_album_art_spotify(artist: str, title: str, album: str = None):
+    """
+    Fetch official high-res studio cover art using Spotify API (lacymorrow/album-art).
+    Returns (source_description, image_bytes) or (None, None).
+    """
+    token = get_spotify_token()
+    if not token:
+        return None, None
+
+    try:
+        import requests
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
+
+        # Primary artist (split on & , ;)
+        primary_artist = re.split(r"[;,&]", artist)[0].strip() if artist else ""
+        clean_title = re.sub(r"\(.*?\)|\[.*?\]", "", title).strip() if title else ""
+        clean_album = re.sub(r"\(.*?\)|\[.*?\]", "", album).strip() if album else ""
+
+        # Build search queries (track match, album match, or artist fallback)
+        search_queries = []
+        if primary_artist and clean_title:
+            search_queries.append((f"track:{clean_title} artist:{primary_artist}", "track"))
+            search_queries.append((f"{primary_artist} {clean_title}", "track"))
+
+        if primary_artist and clean_album and clean_album.lower() != clean_title.lower():
+            search_queries.append((f"artist:{primary_artist} album:{clean_album}", "album"))
+            search_queries.append((f"{primary_artist} {clean_album}", "album"))
+        elif clean_album:
+            search_queries.append((clean_album, "album"))
+
+        if primary_artist:
+            search_queries.append((f"artist:{primary_artist}", "artist"))
+
+        for query, search_type in search_queries:
+            url = f"https://api.spotify.com/v1/search?q={requests.utils.quote(query)}&type={search_type}&limit=5"
+            resp = requests.get(url, headers=headers, timeout=8)
+            if resp.status_code == 200:
+                data = resp.json()
+                items = data.get(f"{search_type}s", {}).get("items", [])
+                for item in items:
+                    images = []
+                    album_name = ""
+                    if search_type == "track":
+                        alb_obj = item.get("album", {})
+                        images = alb_obj.get("images", [])
+                        album_name = alb_obj.get("name", "")
+                    elif search_type in ["album", "artist"]:
+                        images = item.get("images", [])
+                        album_name = item.get("name", "")
+
+                    if images:
+                        # Select highest resolution image
+                        largest = max(images, key=lambda img: (img.get("width") or 0))
+                        img_url = largest.get("url")
+                        if img_url:
+                            img_resp = requests.get(img_url, timeout=12)
+                            if img_resp.status_code == 200 and len(img_resp.content) > 10000:
+                                return f"Spotify (album-art) [{album_name}]", img_resp.content
+    except Exception:
+        pass
+
+    return None, None
+
+
+def fetch_studio_cover_art(artist: str, title: str, album: str = None, release_id: str = None):
+    """
+    Fetch high-resolution official studio album cover art:
+      1. Spotify API (lacymorrow/album-art)
+      2. Cover Art Archive (MusicBrainz / Beets source)
+      3. iTunes Search API (Apple Music / MusicBee source - 1400x1400)
+      4. Deezer API (MusicBee source - 1000x1000)
+    Returns (source_name, image_bytes) or (None, None).
+    """
+    # 1. Primary: Spotify API (lacymorrow/album-art)
+    source, img_bytes = fetch_album_art_spotify(artist, title, album)
+    if img_bytes:
+        return source, img_bytes
+
+    # 2. Cover Art Archive (MusicBrainz) if release ID is known
+    if release_id:
+        try:
+            import requests
+            headers = {"User-Agent": "YouTubeMusicDownloader/2.1 ( contact@pragyancreates.io )"}
+            for size_path in ["front-1200", "front-500", "front"]:
+                caa_url = f"https://coverartarchive.org/release/{release_id}/{size_path}"
+                resp = requests.get(caa_url, headers=headers, timeout=8)
+                if resp.status_code == 200 and len(resp.content) > 10000:
+                    return "Cover Art Archive (MusicBrainz)", resp.content
+        except Exception:
+            pass
+
+    # 3. iTunes Search API (Apple Music)
+    clean_artist = artist.split(",")[0].strip() if artist else ""
+    clean_title = re.sub(r"\(.*?\)|\[.*?\]", "", title).strip() if title else ""
+    try:
+        import requests
+        headers = {"User-Agent": "Mozilla/5.0"}
+        for q in [f"{clean_artist} {clean_title}", clean_title]:
+            if not q.strip():
+                continue
+            itunes_url = f"https://itunes.apple.com/search?term={requests.utils.quote(q)}&media=music&entity=song&limit=5"
+            resp = requests.get(itunes_url, headers=headers, timeout=8)
+            if resp.status_code == 200:
+                data = resp.json()
+                for res in data.get("results", []):
+                    art = res.get("artworkUrl100")
+                    if art:
+                        hi_res = art.replace("100x100bb.jpg", "1400x1400bb.jpg")
+                        img_resp = requests.get(hi_res, headers=headers, timeout=12)
+                        if img_resp.status_code == 200 and len(img_resp.content) > 15000:
+                            coll_name = res.get("collectionName", "Official Studio Album")
+                            return f"Apple Music / iTunes ({coll_name})", img_resp.content
+    except Exception:
+        pass
+
+    # 4. Deezer Search API
+    try:
+        import requests
+        headers = {"User-Agent": "Mozilla/5.0"}
+        deezer_url = f"https://api.deezer.com/search?q={requests.utils.quote(f'{clean_artist} {clean_title}')}&limit=5"
+        resp = requests.get(deezer_url, headers=headers, timeout=8)
+        if resp.status_code == 200:
+            for item in resp.json().get("data", []):
+                alb = item.get("album", {})
+                art = alb.get("cover_xl") or alb.get("cover_big")
+                if art:
+                    img_resp = requests.get(art, headers=headers, timeout=12)
+                    if img_resp.status_code == 200 and len(img_resp.content) > 15000:
+                        alb_title = alb.get("title", "Official Album")
+                        return f"Deezer ({alb_title})", img_resp.content
+    except Exception:
+        pass
+
+    return None, None
+
+
+def embed_cover_art_to_file(file_path: Path, image_bytes: bytes, mime_type: str = "image/jpeg") -> bool:
+    """Embed studio cover art directly into Opus (metadata_block_picture) or MP3 (APIC)."""
+    try:
+        ext = file_path.suffix.lower()
+        if ext == ".opus":
+            import base64
+            from mutagen.oggopus import OggOpus
+            from mutagen.flac import Picture
+            audio = OggOpus(file_path)
+            pic = Picture()
+            pic.data = image_bytes
+            pic.type = 3  # Front Cover
+            pic.mime = mime_type
+            pic.desc = "Front Cover"
+            encoded_pic = base64.b64encode(pic.write()).decode("ascii")
+            audio["metadata_block_picture"] = [encoded_pic]
+            audio.save()
+            return True
+        elif ext == ".mp3":
+            from mutagen.id3 import ID3, APIC, ID3NoHeaderError
+            try:
+                tags = ID3(file_path)
+            except ID3NoHeaderError:
+                tags = ID3()
+            tags.delall("APIC")
+            tags.add(
+                APIC(
+                    encoding=3,
+                    mime=mime_type,
+                    type=3,  # Front Cover
+                    desc="Front Cover",
+                    data=image_bytes
+                )
+            )
+            tags.save(file_path)
+            return True
+    except Exception as e:
+        print(f"      {Colors.YELLOW}[!] Could not embed cover art: {e}{Colors.RESET}")
+    return False
 
 
 def apply_metadata_to_file(file_path: Path, meta: dict):
@@ -469,7 +656,7 @@ def apply_metadata_to_file(file_path: Path, meta: dict):
 
 
 def enrich_audio_files(target_dir: Path):
-    """Run Beets (MusicBrainz) autotagger and lyrics engine on downloaded tracks."""
+    """Run Beets (MusicBrainz), official studio cover art, and lyrics engine on downloaded tracks."""
     audio_files = []
     for ext in ["*.opus", "*.mp3"]:
         audio_files.extend(target_dir.glob(ext))
@@ -477,13 +664,14 @@ def enrich_audio_files(target_dir: Path):
     if not audio_files:
         return
 
-    print(f"\n{Colors.CYAN}================================================================================{Colors.RESET}")
-    print(f"{Colors.BOLD}       METADATA & LYRICS ENRICHMENT (BEETS + MUSICBRAINZ + LRCLIB){Colors.RESET}")
+    print_progress_character("[STUDIO ENRICHMENT]", "Fetching studio cover art (Spotify/iTunes), tags & lyrics...", "✨")
+    print(f"{Colors.CYAN}================================================================================{Colors.RESET}")
+    print(f"{Colors.BOLD}       METADATA, STUDIO ART & LYRICS ENRICHMENT (SPOTIFY + BEETS + LRCLIB){Colors.RESET}")
     print(f"{Colors.CYAN}================================================================================{Colors.RESET}")
     print(f"[*] Found {len(audio_files)} track(s) to process.\n")
 
     for audio_file in audio_files:
-        old_artist, old_title = get_tags(audio_file)
+        old_artist, old_title, old_album = get_tags(audio_file)
         display_name = f"{old_artist} - {old_title}" if old_artist else old_title
         print(f"[*] Processing: {Colors.BOLD}{audio_file.name}{Colors.RESET}")
         print(f"    Current info : {display_name}")
@@ -511,8 +699,9 @@ def enrich_audio_files(target_dir: Path):
                 except Exception:
                     pass
 
-        new_artist, new_title = get_tags(audio_file)
+        new_artist, new_title, new_album = get_tags(audio_file)
         enriched = False
+        release_id = None
         if (new_artist and new_artist != old_artist) or (new_title and new_title != old_title):
             enriched = True
             print(f"    {Colors.GREEN}[+] Matched & enriched via Beets: {new_artist} - {new_title}{Colors.RESET}")
@@ -524,17 +713,30 @@ def enrich_audio_files(target_dir: Path):
                 apply_metadata_to_file(audio_file, mb_meta)
                 new_artist = mb_meta.get("artist") or new_artist
                 new_title = mb_meta.get("title") or new_title
+                new_album = mb_meta.get("album") or new_album
+                release_id = mb_meta.get("release_id")
                 enriched = True
                 print(f"    {Colors.GREEN}[+] Matched & enriched via MusicBrainz: {new_artist} - {new_title} [Album: {mb_meta.get('album')}]{Colors.RESET}")
             else:
                 print("    [i] No official MusicBrainz match found -> Preserved YouTube metadata fallback")
 
-        # 2. Lyrics search & embedding
+        # 2. Studio Cover Art Fetching & Embedding (Spotify album-art / iTunes / Deezer)
+        search_artist = new_artist or old_artist
+        search_title = new_title or old_title
+        search_album = new_album or old_album
+        print(f"    [*] Fetching high-resolution studio cover art (Spotify album-art / iTunes / Deezer)...")
+        art_source, art_bytes = fetch_studio_cover_art(search_artist, search_title, search_album, release_id)
+        if art_bytes:
+            if embed_cover_art_to_file(audio_file, art_bytes):
+                size_kb = len(art_bytes) / 1024
+                print(f"    {Colors.GREEN}[+] Embedded Studio Cover Art ({size_kb:.0f} KB) from {art_source}!{Colors.RESET}")
+        else:
+            print("    [i] Studio art not found in official databases -> Preserved YouTube thumbnail fallback")
+
+        # 3. Lyrics search & embedding
         if has_embedded_lyrics(audio_file):
             print(f"    {Colors.GREEN}[+] Lyrics are already embedded.{Colors.RESET}")
         else:
-            search_artist = new_artist or old_artist
-            search_title = new_title or old_title
             print(f"    [*] Searching lyrics online for: '{search_title}' by '{search_artist}'...")
             lyrics = fetch_online_lyrics(search_artist, search_title)
             if lyrics:
@@ -550,7 +752,8 @@ def enrich_audio_files(target_dir: Path):
         except Exception:
             pass
 
-    print(f"\n{Colors.GREEN}[+] Enrichment complete! All metadata & lyrics are embedded directly in files.{Colors.RESET}")
+    print_progress_character("[ALL COMPLETE]", "All tracks enriched with studio artwork & lyrics! Enjoy!", "♥")
+    print(f"\n{Colors.GREEN}[+] Enrichment complete! All metadata, studio cover art & lyrics are embedded directly in files.{Colors.RESET}")
 
 
 # ==============================================================================
@@ -602,6 +805,8 @@ def download_video():
     print(f"    Destination : {Colors.BOLD}{VIDEOS_DIR}{Colors.RESET}")
     print(f"{Colors.CYAN}================================================================================{Colors.RESET}\n")
 
+    print_progress_character("[DOWNLOADING VIDEO]", "Fetching stream & merging video + audio...", "🎬")
+
     args = [
         "-f", f_param,
         "--merge-output-format", container,
@@ -615,6 +820,7 @@ def download_video():
 
     ret = run_ytdlp(args)
     if ret == 0:
+        print_progress_character("[DOWNLOAD COMPLETE]", "Video saved successfully in Downloads/Videos!", "✔")
         print(f"\n{Colors.GREEN}================================================================================{Colors.RESET}")
         print(f"{Colors.GREEN}[+] SUCCESS: Video downloaded and merged successfully!{Colors.RESET}")
         print(f"    Saved in: {Colors.BOLD}{VIDEOS_DIR}{Colors.RESET}")
@@ -682,9 +888,11 @@ def download_music():
     print(f"   * Playlist / Album   : {Colors.BOLD}{target_folder_name}{Colors.RESET}")
     print(f"   * Format             : {Colors.BOLD}{audio_format.upper()} (High Quality){Colors.RESET}")
     print(f"   * Resume Archive     : {Colors.BOLD}{archive_file}{Colors.RESET}")
-    print(f"   * Embedding Mode     : {Colors.BOLD}100% Inside Audio (Cover, Title, Artist, Album, Track #){Colors.RESET}")
+    print(f"   * Embedding Mode     : {Colors.BOLD}100% Inside Audio (Studio Cover, Title, Artist, Album, Track #){Colors.RESET}")
     print(f"{Colors.CYAN}================================================================================{Colors.RESET}\n")
     print(f"[*] {Colors.GREEN}Starting download... Interrupted downloads resume from where they left off.{Colors.RESET}\n")
+
+    print_progress_character("[DOWNLOADING MUSIC]", "Downloading audio stream from YouTube...", "♫")
 
     # yt-dlp arguments (clean embedded tags, NO loose sidecar files)
     dl_args = [
@@ -793,6 +1001,7 @@ def manage_cookies():
 
         shutil.copy2(src_file, COOKIES_FILE)
         size_kb = COOKIES_FILE.stat().st_size / 1024
+        print_progress_character("[COOKIES ACTIVE]", "Active YouTube authentication session updated!", "🍪")
         print(f"\n{Colors.GREEN}[+] Cookies successfully imported! ({size_kb:.1f} KB){Colors.RESET}")
         print(f"    Saved to: {Colors.BOLD}{COOKIES_FILE}{Colors.RESET}")
         if "youtube" in content.lower():
@@ -808,7 +1017,6 @@ def manage_cookies():
 # Main Menu
 # ==============================================================================
 def main():
-    print_banner()
     check_and_install_dependencies()
 
     while True:
@@ -845,6 +1053,7 @@ def main():
         elif choice == "3":
             manage_cookies()
         elif choice == "4":
+            print_progress_character("[UPDATING PACKAGES]", "Upgrading yt-dlp, Beets & Mutagen via pip...", "⚡")
             print(f"\n[*] Updating yt-dlp and Beets via pip...")
             subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "yt-dlp", "beets", "mutagen"])
             input("\nUpdate finished. Press Enter to continue...")
