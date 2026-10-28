@@ -217,12 +217,23 @@ def open_folder(folder_path: Path):
         print(f"Folder location: {folder_path} (could not launch explorer: {e})")
 
 
+def clean_user_url(raw_input: str) -> str:
+    """Clean and validate URL string from terminal input, stripping control chars like ^V."""
+    if not raw_input:
+        return ""
+    # Strip invisible ASCII control characters (such as \x16 from pressing Ctrl+V in Windows cmd)
+    return re.sub(r'[\x00-\x1f\x7f-\x9f]', '', raw_input).strip().strip('"').strip("'")
+
+
 def run_ytdlp(args: list) -> int:
-    """Run yt-dlp with realtime console output, automatically applying cookies if available."""
+    """Run yt-dlp with realtime console output, automatically applying cookies & challenge solver."""
     cmd = [sys.executable, "-m", "yt_dlp"]
     if COOKIES_FILE.exists() and COOKIES_FILE.stat().st_size > 0:
         if "--cookies" not in args:
             cmd.extend(["--cookies", str(COOKIES_FILE)])
+    # Automatically enable YouTube JS challenge solver (EJS) using Deno/Node
+    if "--remote-components" not in args:
+        cmd.extend(["--remote-components", "ejs:github"])
     cmd.extend(args)
     try:
         proc = subprocess.run(cmd)
@@ -802,8 +813,15 @@ def download_video():
     print(f"{Colors.BOLD}                          DOWNLOAD YOUTUBE VIDEO{Colors.RESET}")
     print(f"{Colors.CYAN}================================================================================{Colors.RESET}\n")
 
-    url = input("Enter YouTube Video URL (or 'back' to return): ").strip().strip('"').strip("'")
+    raw_url = input("Enter YouTube Video URL (or 'back' to return): ")
+    url = clean_user_url(raw_url)
     if not url or url.lower() == "back":
+        return
+
+    if not (url.startswith("http://") or url.startswith("https://") or "youtu" in url):
+        print(f"\n{Colors.RED}[ERROR] '{raw_url.strip()}' is not a valid URL.{Colors.RESET}")
+        print("  Tip: If Ctrl+V doesn't paste in this console, right-click inside the window to paste.")
+        input("Press Enter to continue...")
         return
 
     print(f"\n[*] {Colors.CYAN}Fetching available formats from YouTube... Please wait...{Colors.RESET}\n")
@@ -877,8 +895,15 @@ def download_music():
     print(f"{Colors.BOLD}                   DOWNLOAD MUSIC (SINGLE TRACK OR PLAYLIST){Colors.RESET}")
     print(f"{Colors.CYAN}================================================================================{Colors.RESET}\n")
 
-    url = input("Enter YouTube Music link, song link, or playlist link: ").strip().strip('"').strip("'")
+    raw_url = input("Enter YouTube Music link, song link, or playlist link: ")
+    url = clean_user_url(raw_url)
     if not url or url.lower() == "back":
+        return
+
+    if not (url.startswith("http://") or url.startswith("https://") or "youtu" in url):
+        print(f"\n{Colors.RED}[ERROR] '{raw_url.strip()}' is not a valid URL.{Colors.RESET}")
+        print("  Tip: If Ctrl+V doesn't paste in this console, right-click inside the window to paste.")
+        input("Press Enter to continue...")
         return
 
     print(f"\n{Colors.CYAN}--------------------------------------------------------------------------------{Colors.RESET}")
@@ -904,7 +929,10 @@ def download_music():
 
     print(f"\n[*] {Colors.CYAN}Analyzing link and retrieving metadata...{Colors.RESET}")
     try:
-        query_cmd = [sys.executable, "-m", "yt_dlp", "--flat-playlist", "--playlist-items", "1", "--print", "%(playlist_title)s"] + extra_flags + [url]
+        query_cmd = [sys.executable, "-m", "yt_dlp", "--flat-playlist", "--playlist-items", "1", "--print", "%(playlist_title)s", "--remote-components", "ejs:github"]
+        if COOKIES_FILE.exists() and COOKIES_FILE.stat().st_size > 0:
+            query_cmd.extend(["--cookies", str(COOKIES_FILE)])
+        query_cmd.extend(extra_flags + [url])
         res = subprocess.run(query_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=15)
         raw_title = res.stdout.strip()
     except Exception:
